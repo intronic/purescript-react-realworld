@@ -27,7 +27,7 @@
     "clean": "rm -Rf .cache dist serve output dce-output node_modules .spago *.lock",
     "postinstall": "spago install",
     "serve": "yarn build && yarn serve:parcel",
-    "serve:parcel": "parcel serve --no-source-maps --out-dir serve index.html",
+    "serve:parcel": "parcel serve --no-source-maps --dist-dir serve index.html",
     "test": "spago test --no-install"
   },
   "devDependencies": {
