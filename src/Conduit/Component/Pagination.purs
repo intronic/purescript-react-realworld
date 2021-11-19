@@ -11,14 +11,14 @@ import React.Basic.DOM.Events (preventDefault)
 import React.Basic.Events (handler)
 import React.Basic.Hooks (JSX, fragment)
 
-type Props
-  = { offset :: Int
-    , limit :: Int
-    , totalCount :: Int
-    , onChange :: { offset :: Int, limit :: Int } -> Effect Unit
-    , focusWindow :: Int
-    , marginPages :: Int
-    }
+type Props =
+  { offset :: Int
+  , limit :: Int
+  , totalCount :: Int
+  , onChange :: { offset :: Int, limit :: Int } -> Effect Unit
+  , focusWindow :: Int
+  , marginPages :: Int
+  }
 
 pagination :: Props -> JSX
 pagination props =
@@ -63,18 +63,18 @@ pagination props =
   pageButtons start end =
     fragment
       $ Array.range start end
-      <#> \i ->
-          R.li
-            { className: "page-item" <> guard (i == currentPage) " active"
-            , children:
-                [ R.a
-                    { className: "page-link"
-                    , href: "#"
-                    , onClick: handler preventDefault $ const $ onPageChange i
-                    , children: [ R.text $ show (i + 1) ]
-                    }
-                ]
-            }
+          <#> \i ->
+            R.li
+              { className: "page-item" <> guard (i == currentPage) " active"
+              , children:
+                  [ R.a
+                      { className: "page-link"
+                      , href: "#"
+                      , onClick: handler preventDefault $ const $ onPageChange i
+                      , children: [ R.text $ show (i + 1) ]
+                      }
+                  ]
+              }
 
   leftMargin = props.marginPages - 1
 

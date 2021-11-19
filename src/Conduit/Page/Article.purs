@@ -29,7 +29,7 @@ import Data.Either (Either(..))
 import Data.Foldable (for_, traverse_)
 import Data.Lens (preview, set)
 import Data.Lens.Record as LR
-import Data.Maybe (Maybe(..), fromMaybe, maybe)
+import Data.Maybe (Maybe(..), maybe)
 import Data.Monoid (guard)
 import Data.Symbol (SProxy(..))
 import Data.Validation.Semigroup (V, toEither)
@@ -43,9 +43,9 @@ import React.Basic.Events (handler, handler_)
 import React.Basic.Hooks as React
 import React.Halo as Halo
 
-type Props
-  = { slug :: Slug
-    }
+type Props =
+  { slug :: Slug
+  }
 
 data Action
   = Initialize
@@ -178,10 +178,10 @@ mkArticlePage = component "ArticlePage" { context, initialState, eval, render }
                                     , children:
                                         article.tagList
                                           <#> \tag ->
-                                              R.li
-                                                { className: "tag-default tag-pill tag-outline"
-                                                , children: [ R.text tag ]
-                                                }
+                                            R.li
+                                              { className: "tag-default tag-pill tag-outline"
+                                              , children: [ R.text tag ]
+                                              }
                                     }
                                 ]
                             }
@@ -293,36 +293,36 @@ mkArticlePage = component "ArticlePage" { context, initialState, eval, render }
             , case _.username <$> state.auth of
                 Just username
                   | username == article.author.username ->
-                    R.span_
-                      [ Link.link
-                          { className: "btn btn-outline-secondary btn-sm"
-                          , route: UpdateArticle article.slug
-                          , onClick: send <<< Navigate
-                          , children:
-                              [ R.i
-                                  { className: "ion-edit"
-                                  , children: []
-                                  }
-                              , R.text " Edit Article"
-                              ]
-                          }
-                      , R.text " "
-                      , R.button
-                          { className: "btn btn-outline-danger btn-sm"
-                          , onClick: handler_ $ send DeleteArticle
-                          , children:
-                              [ R.i
-                                  { className: "ion-trash-a"
-                                  , children: []
-                                  }
-                              , R.text " Delete Article"
-                              ]
-                          }
-                      ]
+                      R.span_
+                        [ Link.link
+                            { className: "btn btn-outline-secondary btn-sm"
+                            , route: UpdateArticle article.slug
+                            , onClick: send <<< Navigate
+                            , children:
+                                [ R.i
+                                    { className: "ion-edit"
+                                    , children: []
+                                    }
+                                , R.text " Edit Article"
+                                ]
+                            }
+                        , R.text " "
+                        , R.button
+                            { className: "btn btn-outline-danger btn-sm"
+                            , onClick: handler_ $ send DeleteArticle
+                            , children:
+                                [ R.i
+                                    { className: "ion-trash-a"
+                                    , children: []
+                                    }
+                                , R.text " Delete Article"
+                                ]
+                            }
+                        ]
                 _ ->
                   R.span_
                     [ followButton
-                        { following: fromMaybe false article.author.following
+                        { following: article.author.following
                         , username: article.author.username
                         , onClick: handler_ $ send ToggleFollow
                         }

@@ -14,10 +14,10 @@ import React.Basic.DOM.Events (key, preventDefault, stopPropagation, targetValue
 import React.Basic.Events (handler, handler_, merge, syntheticEvent)
 import React.Basic.Hooks as React
 
-type Props
-  = { tags :: Set String
-    , onChange :: Set String -> Effect Unit
-    }
+type Props =
+  { tags :: Set String
+  , onChange :: Set String -> Effect Unit
+  }
 
 tagInput :: Props -> React.JSX
 tagInput = unsafePerformEffect mkTagInput
@@ -53,17 +53,17 @@ mkTagInput = do
                   , children:
                       Set.toUnfoldable props.tags
                         <#> \tag ->
-                            R.span
-                              { className: "tag-default tag-pill"
-                              , children:
-                                  [ R.i
-                                      { className: "ion-close-round"
-                                      , onClick: handler_ $ props.onChange $ Set.delete tag props.tags
-                                      , children: []
-                                      }
-                                  , R.text tag
-                                  ]
-                              }
+                          R.span
+                            { className: "tag-default tag-pill"
+                            , children:
+                                [ R.i
+                                    { className: "ion-close-round"
+                                    , onClick: handler_ $ props.onChange $ Set.delete tag props.tags
+                                    , children: []
+                                    }
+                                , R.text tag
+                                ]
+                            }
                   }
               ]
           }

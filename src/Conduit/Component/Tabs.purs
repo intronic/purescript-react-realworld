@@ -12,18 +12,18 @@ import React.Basic.DOM.Events (preventDefault)
 import React.Basic.Events (handler)
 import React.Basic.Hooks as React
 
-type Props a
-  = { className :: String
-    , selectedTab :: Maybe a
-    , tabs ::
-        Array
-          { id :: a
-          , label :: React.JSX
-          , disabled :: Boolean
-          , content :: React.JSX
-          }
-    , onChange :: a -> Effect Unit
-    }
+type Props a =
+  { className :: String
+  , selectedTab :: Maybe a
+  , tabs ::
+      Array
+        { id :: a
+        , label :: React.JSX
+        , disabled :: Boolean
+        , content :: React.JSX
+        }
+  , onChange :: a -> Effect Unit
+  }
 
 tabs :: forall a. Eq a => Props a -> React.JSX
 tabs props =
@@ -36,17 +36,17 @@ tabs props =
                 , children:
                     props.tabs
                       <#> \{ id, label, disabled } ->
-                          guard (not disabled) R.li
-                            { className: "nav-item"
-                            , children:
-                                [ R.a
-                                    { className: "nav-link" <> guard (isActive id) " active"
-                                    , href: "#"
-                                    , onClick: handler preventDefault $ const $ props.onChange id
-                                    , children: [ label ]
-                                    }
-                                ]
-                            }
+                        guard (not disabled) R.li
+                          { className: "nav-item"
+                          , children:
+                              [ R.a
+                                  { className: "nav-link" <> guard (isActive id) " active"
+                                  , href: "#"
+                                  , onClick: handler preventDefault $ const $ props.onChange id
+                                  , children: [ label ]
+                                  }
+                              ]
+                          }
                 }
             ]
         }
